@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="description" content="Curso personalizado de mandarim com áudio, revisão inteligente, gravação de voz e simulações para viagem e importação." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Mandarim com o Prof.</title>
+</head>
+<body>
+  <div id="app">
+    <header class="hero">
+      <div class="hero__text">
+        <span class="pill">Curso pessoal até a China</span>
+        <h1>Mandarim com o Prof.</h1>
+        <p>Treino diário com áudio, repetição, revisão inteligente, gravação da sua voz e simulações para viagem, feira, fornecedores e importação.</p>
+        <div class="hero__actions">
+          <button id="installBtn" class="btn btn--light hidden">Instalar no celular</button>
+          <button id="todayBtn" class="btn btn--light-outline">Abrir aula de hoje</button>
+          <button id="resetBtn" class="btn btn--ghost">Zerar progresso</button>
+        </div>
+      </div>
+      <div class="stats-card">
+        <div class="stats-card__top"><span>Progresso total</span><strong id="totalProgressText">0%</strong></div>
+        <div class="bar"><div id="totalProgressBar" class="bar__fill"></div></div>
+        <div class="stats-grid">
+          <div><strong id="doneDays">0</strong><span>dias feitos</span></div>
+          <div><strong>180</strong><span>dias</span></div>
+          <div><strong id="streakDays">0</strong><span>sequência</span></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <section class="card settings">
+          <h2>Configuração rápida</h2>
+          <label>Minutos por dia
+            <input id="minutesInput" type="number" min="10" max="120" value="35" />
+          </label>
+          <label>Meta da viagem
+            <input id="tripDateInput" type="date" />
+          </label>
+          <label class="check"><input id="useNativeFirst" type="checkbox" checked /> Usar MP3 nativo quando existir</label>
+          <p class="hint">Sem MP3, o site usa voz automática como quebra-galho. O ideal é gravar os arquivos da pasta <code>/audio</code>.</p>
+        </section>
+
+        <section class="card">
+          <div class="card-head"><h2>Módulos</h2><span id="moduleCount"></span></div>
+          <div id="moduleList" class="module-list"></div>
+        </section>
+
+        <section class="card days-card">
+          <div class="search"><input id="searchInput" placeholder="Buscar aula, frase ou tema" /></div>
+          <div id="dayList" class="day-list"></div>
+        </section>
+      </aside>
+
+      <section class="content">
+        <section class="lesson-card card">
+          <div class="lesson-top">
+            <div>
+              <div id="lessonBadges" class="badges"></div>
+              <h2 id="lessonTitle">Aula</h2>
+              <p id="lessonGoal"></p>
+              <div class="small-progress"><span>Progresso do módulo</span><strong id="moduleProgressText">0%</strong></div>
+              <div class="bar bar--small"><div id="moduleProgressBar" class="bar__fill"></div></div>
+            </div>
+            <div class="lesson-actions">
+              <button id="prevDay" class="btn btn--outline">←</button>
+              <button id="nextDay" class="btn btn--outline">→</button>
+              <button id="completeBtn" class="btn">Concluir aula</button>
+            </div>
+          </div>
+        </section>
+
+        <nav class="tabs card">
+          <button data-tab="listen" class="tab active">1. Ouvir</button>
+          <button data-tab="repeat" class="tab">2. Repetir</button>
+          <button data-tab="quiz" class="tab">3. Teste</button>
+          <button data-tab="review" class="tab">4. Revisão</button>
+          <button data-tab="sim" class="tab">Simulações</button>
+          <button data-tab="plan" class="tab">Plano</button>
+        </nav>
+
+        <section id="panel-listen" class="panel active card">
+          <div class="panel-head">
+            <div><h3>Ouça antes de ler</h3><p>Primeiro som, depois pinyin e tradução. Isso evita pronúncia aportuguesada.</p></div>
+            <div class="panel-actions"><button id="toggleReading" class="btn btn--outline">Mostrar leitura</button><button id="playAll" class="btn">Tocar tudo</button></div>
+          </div>
+          <div id="phraseList" class="phrase-list"></div>
+        </section>
+
+        <section id="panel-repeat" class="panel card">
+          <h3>Treino de boca e ouvido</h3>
+          <div class="steps">
+            <div><b>1</b><strong>Ouvir</strong><span>5 vezes sem ler.</span></div>
+            <div><b>2</b><strong>Imitar</strong><span>10 vezes copiando ritmo e tom.</span></div>
+            <div><b>3</b><strong>Gravar</strong><span>Grave sua voz no navegador.</span></div>
+            <div><b>4</b><strong>Comparar</strong><span>Ouça nativo e sua gravação.</span></div>
+          </div>
+          <div class="recorder">
+            <h4>Gravador de voz</h4>
+            <p>Use para comparar sua pronúncia com o áudio nativo.</p>
+            <div class="recorder-actions"><button id="recordBtn" class="btn">Gravar</button><button id="stopRecordBtn" class="btn btn--outline" disabled>Parar</button><audio id="recordedAudio" controls></audio></div>
+          </div>
+          <div class="mission"><strong>Missão do dia:</strong><span id="dailyMission"></span></div>
+        </section>
+
+        <section id="panel-quiz" class="panel card">
+          <div class="panel-head"><div><h3>Teste diário</h3><p>O app testa significado, reconhecimento e memória. Responda sem olhar se conseguir.</p></div><button id="newQuiz" class="btn">Novo teste</button></div>
+          <div id="quizBox" class="quiz-box"></div>
+        </section>
+
+        <section id="panel-review" class="panel card">
+          <div class="panel-head"><div><h3>Revisão inteligente</h3><p>Marque como errei, quase acertei ou acertei. O app agenda a próxima revisão.</p></div><button id="dueOnlyBtn" class="btn btn--outline">Revisões de hoje</button></div>
+          <div id="reviewList" class="review-list"></div>
+        </section>
+
+        <section id="panel-sim" class="panel card">
+          <div class="panel-head"><div><h3>Simulações reais</h3><p>Treinos de situação: hotel, restaurante, feira, fornecedor e negociação.</p></div><button id="newSimulation" class="btn">Trocar simulação</button></div>
+          <div id="simulationBox" class="simulation-box"></div>
+        </section>
+
+        <section id="panel-plan" class="panel card">
+          <h3>Plano até a China</h3>
+          <div class="plan-grid" id="planGrid"></div>
+          <div class="warning"><strong>Regra do Prof.:</strong> mandarim sem áudio é perda de tempo. Todos os dias precisam ter escuta, repetição, gravação e revisão.</div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

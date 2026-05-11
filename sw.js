@@ -1,7 +1,7 @@
-const CACHE_NAME = 'mandarim-prof-v1';
+const CACHE_NAME = 'mandarim-prof-v2';
 const CORE_ASSETS = [
   './', './index.html', './styles.css', './app.js', './manifest.webmanifest',
-  './assets/icons/icon-192.png', './assets/icons/icon-512.png', './audio/LEIA-ME-AUDIOS.txt'
+  './assets/icons/icon.svg', './audio/LEIA-ME-AUDIOS.txt'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE_ASSETS)));

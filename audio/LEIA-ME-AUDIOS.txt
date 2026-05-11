@@ -1,0 +1,17 @@
+PASTA DE AUDIOS NATIVOS
+
+O app procura os arquivos em formato MP3 neste padrão:
+
+day-001-phrase-01.mp3
+day-001-phrase-02.mp3
+day-001-phrase-03.mp3
+day-001-phrase-04.mp3
+
+day-002-phrase-01.mp3
+...
+
+day-180-phrase-04.mp3
+
+Enquanto esses arquivos não forem adicionados, o botão de áudio usa a voz automática do navegador em chinês.
+
+Para áudio nativo perfeito, grave uma pessoa chinesa lendo cada frase e salve com o nome correspondente.
